@@ -12,25 +12,28 @@ services:
     depends_on: 
       - db
     environment:
-      - MONGO_DB_URI=mongodb://db/microservices
-
-  tournaments:
-    build: './Tournaments'
+      - MONGO_DB_URI=mongodb+srv://aijazali333:abcbnm123@cluster0-dlqz8.gcp.mongodb.net/test?retryWrites=true&w=majority
+      # - MONGO_DB_URI=mongodb://db/microservices
+  
+  tournament:
+    build: './Tournament'
     ports:
       - "3002:3000"
     depends_on: 
       - db
     environment:
-      - MONGO_DB_URI=mongodb://db/microservices
+      - MONGO_DB_URI=mongodb+srv://aijazali333:abcbnm123@cluster0-dlqz8.gcp.mongodb.net/test?retryWrites=true&w=majority
+      # mongodb://db/microservices
 
-  users:
-    build: './users'
+  user:
+    build: './user'
     ports:
       - "3003:3000"
     depends_on: 
       - db
     environment:
-      - MONGO_DB_URI=mongodb://db/microservices
+      - MONGO_DB_URI=mongodb+srv://aijazali333:abcbnm123@cluster0-dlqz8.gcp.mongodb.net/test?retryWrites=true&w=majority
+      # mongodb://db/microservices
   
   db:
     image: mongo
@@ -46,6 +49,6 @@ services:
       - ./default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - web
-      - tournaments
+      - tournament
       - search
-      - users
+      - user
